@@ -161,7 +161,8 @@ function Field({
   type = "text",
   placeholder = "Enter your email",
   showPasswordToggle = false,
-  onTogglePassword
+  onTogglePassword,
+  helperText
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -172,6 +173,7 @@ function Field({
   placeholder?: string;
   showPasswordToggle?: boolean;
   onTogglePassword?: () => void;
+  helperText?: string;
 }) {
   const [isFocused, setIsFocused] = React.useState(false);
   const showError = hasAttemptedSubmit && error;
@@ -231,11 +233,15 @@ function Field({
           </button>
         )}
       </div>
-      {showError && (
+      {showError ? (
         <div className="font-['Montserrat',sans-serif] font-medium text-[12px] text-[#DC2626] mt-[4px] ml-[12px]">
           {error}
         </div>
-      )}
+      ) : helperText ? (
+        <div className="font-['Montserrat',sans-serif] text-[12px] text-[#667085] mt-[4px] ml-[12px]">
+          {helperText}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -260,7 +266,7 @@ function Base3() {
   );
 }
 
-function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () => void; onLoginSuccess?: () => void; email: string; setEmail: (v: string) => void }) {
+function Frame({ onCreateAccount, onLoginSuccess, email, setEmail }: { onCreateAccount?: () => void; onLoginSuccess?: () => void; email: string; setEmail: (v: string) => void }) {
   const [password, setPassword] = React.useState("");
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = React.useState(false);
   const [showPasswordField, setShowPasswordField] = React.useState(false);
@@ -275,6 +281,8 @@ function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () 
 
   const isEmailValid = validateEmail(email);
   const emailError = !email ? "Enter is required to login or signup" : !isEmailValid ? "Please enter a valid email address" : "";
+  const isNewUser = email.toLowerCase() === "newuser@gmail.com";
+  const submitLabel = showPasswordField ? (isNewUser ? "Create account" : "Login") : "Continue";
 
   const handleEmailChange = (newEmail: string) => {
     setEmail(newEmail);
@@ -282,6 +290,7 @@ function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () 
       setShowPasswordField(false);
       setPassword("");
       setHasAttemptedSubmit(false);
+      setPasswordError("");
     }
   };
 
@@ -292,18 +301,20 @@ function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () 
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
-        if (email.toLowerCase() === "newuser@gmail.com") {
-          onNewUser?.();
-        } else {
-          setShowPasswordField(true);
-        }
+        setShowPasswordField(true);
       }, 1200);
     } else if (showPasswordField) {
       setPasswordError("");
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
-        if (email.toLowerCase() === "existinguser@gmail.com" && password === "password") {
+        if (isNewUser) {
+          if (password.length >= 8) {
+            onCreateAccount?.();
+          } else {
+            setPasswordError("Your password should contain at least 8 characters");
+          }
+        } else if (email.toLowerCase() === "existinguser@gmail.com" && password === "password") {
           onLoginSuccess?.();
         } else {
           setPasswordError("Password you've entered is incorrect. Try again.");
@@ -345,6 +356,7 @@ function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () 
               error={passwordError}
               showPasswordToggle={true}
               onTogglePassword={() => setShowPasswordText(!showPasswordText)}
+              helperText={isNewUser ? "Your password should contain at least 8 characters" : undefined}
             />
           </div>
         </div>
@@ -358,12 +370,12 @@ function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () 
                 <path d="M15.5 8.5a7 7 0 0 0-7-7" stroke="black" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
-              <Base2 label={showPasswordField ? "Login" : "Continue"} />
+              <Base2 label={submitLabel} />
             )}
           </div>
         </div>
       </div>
-      {showPasswordField && (
+      {showPasswordField && !isNewUser && (
         <div className="h-[44px] relative rounded-[4px] shrink-0 w-full" data-name="Text Button">
           <div className="flex flex-col items-center justify-center overflow-clip rounded-[inherit] size-full">
             <div className="content-stretch flex flex-col items-center justify-center px-[24px] relative size-full">
@@ -376,7 +388,7 @@ function Frame({ onNewUser, onLoginSuccess, email, setEmail }: { onNewUser?: () 
   );
 }
 
-function Frame2({ onNewUser, onLoginSuccess, onSSO, email, setEmail }: { onNewUser?: () => void; onLoginSuccess?: () => void; onSSO?: (provider: "apple" | "google") => void; email: string; setEmail: (v: string) => void }) {
+function Frame2({ onCreateAccount, onLoginSuccess, onSSO, email, setEmail }: { onCreateAccount?: () => void; onLoginSuccess?: () => void; onSSO?: (provider: "apple" | "google") => void; email: string; setEmail: (v: string) => void }) {
   return (
     <div className="absolute content-stretch flex flex-col gap-[24px] items-start left-[12px] top-[140px] right-[12px]">
       <div className="flex flex-col gap-[8px] w-full">
@@ -389,7 +401,7 @@ function Frame2({ onNewUser, onLoginSuccess, onSSO, email, setEmail }: { onNewUs
       </div>
       <Frame3 onSSO={onSSO} />
       <Frame1 />
-      <Frame onNewUser={onNewUser} onLoginSuccess={onLoginSuccess} email={email} setEmail={setEmail} />
+      <Frame onCreateAccount={onCreateAccount} onLoginSuccess={onLoginSuccess} email={email} setEmail={setEmail} />
     </div>
   );
 }
@@ -650,10 +662,10 @@ function EmojiDictation() {
   );
 }
 
-function LoginSignin({ onNewUser, onLoginSuccess, onSSO, email, setEmail }: { onNewUser?: () => void; onLoginSuccess?: () => void; onSSO?: (provider: "apple" | "google") => void; email: string; setEmail: (v: string) => void }) {
+function LoginSignin({ onCreateAccount, onLoginSuccess, onSSO, email, setEmail }: { onCreateAccount?: () => void; onLoginSuccess?: () => void; onSSO?: (provider: "apple" | "google") => void; email: string; setEmail: (v: string) => void }) {
   return (
     <div className="absolute bg-[#f9fafb] h-[852px] left-0 right-0 overflow-clip top-0" data-name="Login | Signin">
-      <Frame2 onNewUser={onNewUser} onLoginSuccess={onLoginSuccess} onSSO={onSSO} email={email} setEmail={setEmail} />
+      <Frame2 onCreateAccount={onCreateAccount} onLoginSuccess={onLoginSuccess} onSSO={onSSO} email={email} setEmail={setEmail} />
       <div className="absolute backdrop-blur-[54.366px] bg-[#d1d3d9] h-[290px] left-0 right-0 overflow-clip top-[862px]" data-name="AlphabeticKeyboard">
         <Keys />
         <BottomRow1 />
@@ -731,10 +743,10 @@ function Group() {
   );
 }
 
-export default function SigninWithEmail({ onBack, onNewUser, onLoginSuccess, onSSO, email, setEmail }: { onBack?: () => void; onNewUser?: () => void; onLoginSuccess?: () => void; onSSO?: (provider: "apple" | "google") => void; email: string; setEmail: (v: string) => void }) {
+export default function SigninWithEmail({ onBack, onCreateAccount, onLoginSuccess, onSSO, email, setEmail }: { onBack?: () => void; onCreateAccount?: () => void; onLoginSuccess?: () => void; onSSO?: (provider: "apple" | "google") => void; email: string; setEmail: (v: string) => void }) {
   return (
     <div className="relative size-full" data-name="Signin with Email - 5">
-      <LoginSignin onNewUser={onNewUser} onLoginSuccess={onLoginSuccess} onSSO={onSSO} email={email} setEmail={setEmail} />
+      <LoginSignin onCreateAccount={onCreateAccount} onLoginSuccess={onLoginSuccess} onSSO={onSSO} email={email} setEmail={setEmail} />
     </div>
   );
 }

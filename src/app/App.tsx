@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import VariantA from "../imports/VariantA/VariantA";
 import SigninWithEmail from "../imports/SigninWithEmail5/SigninWithEmail5";
-import SignupPage from "./components/SignupPage";
 import HowDidYouHearPage from "./components/HowDidYouHearPage";
 import AppHeader from "./components/AppHeader";
 
-type Screen = "landing" | "signin" | "signup" | "howDidYouHear";
-const order: Screen[] = ["landing", "signin", "signup", "howDidYouHear"];
+type Screen = "landing" | "signin" | "howDidYouHear";
+const order: Screen[] = ["landing", "signin", "howDidYouHear"];
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("landing");
@@ -18,8 +17,7 @@ export default function App() {
   const index = order.indexOf(screen);
 
   const onBack = () => {
-    if (screen === "howDidYouHear") setScreen("signup");
-    else if (screen === "signup") setScreen("signin");
+    if (screen === "howDidYouHear") setScreen("signin");
     else if (screen === "signin") setScreen("landing");
   };
 
@@ -79,7 +77,7 @@ export default function App() {
         <div className="relative shrink-0 w-full h-full">
           <SigninWithEmail
             onBack={() => setScreen("landing")}
-            onNewUser={() => setScreen("signup")}
+            onCreateAccount={() => setScreen("howDidYouHear")}
             onLoginSuccess={() => { setLoggedIn(true); setHideHeader(true); }}
             onSSO={(provider) => setSsoProvider(provider)}
             email={email}
@@ -87,10 +85,7 @@ export default function App() {
           />
         </div>
         <div className="relative shrink-0 w-full h-full">
-          <SignupPage onBack={() => setScreen("signin")} active={screen === "signup"} onContinue={() => setScreen("howDidYouHear")} />
-        </div>
-        <div className="relative shrink-0 w-full h-full">
-          <HowDidYouHearPage onBack={() => setScreen("signup")} onSuccess={() => setHideHeader(true)} />
+          <HowDidYouHearPage onBack={() => setScreen("signin")} onSuccess={() => setHideHeader(true)} />
         </div>
       </div>
       <AppHeader onBack={onBack} visible={screen !== "landing" && !hideHeader} />
