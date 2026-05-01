@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Foundation Design System - CSS Custom Properties
+   Source: github.com/michellefleek/design-system-web (tokens.css)
+   ========================================================================== */
+
+:root {
+  /* CORE COLOR TOKENS */
+  --color-sunflower: #F8C642;
+  --color-sunflower-700: #FFDB7E;
+  --color-sunflower-400: #FCE4AA;
+  --color-sunflower-200: #FEF2D4;
+
+  --color-marigold: #E88239;
+  --color-marigold-700: #EC9D69;
+  --color-marigold-400: #F5C6A7;
+  --color-marigold-200: #F9E2D1;
+
+  --color-bluebell: #6071D7;
+  --color-bluebell-700: #8491DF;
+  --color-bluebell-400: #B7BFEC;
+  --color-bluebell-200: #DADFF6;
+
+  --color-signal-yellow: #FFD400;
+  --color-signal-yellow-700: #FFE066;
+  --color-signal-yellow-400: #FFF0B3;
+  --color-signal-yellow-200: #FFF9E6;
+
+  --color-vibrant-orange: #F25C2A;
+  --color-vibrant-orange-700: #F78A63;
+  --color-vibrant-orange-400: #FBC3AE;
+  --color-vibrant-orange-200: #FDE8DF;
+
+  --color-electric-blue: #0D2BFF;
+  --color-electric-blue-700: #4D63FF;
+  --color-electric-blue-400: #9AA6FF;
+  --color-electric-blue-200: #E4E8FF;
+
+  --color-cream: #F6F1E7;
+  --color-cream-700: #F8F3EB;
+  --color-cream-400: #F9F6EE;
+  --color-cream-200: #FBF8F2;
+
+  --color-green: #12B76A;
+  --color-green-700: #4FC68C;
+  --color-green-400: #96DEBB;
+  --color-green-200: #CAEFDD;
+
+  --color-red: #F04438;
+  --color-red-700: #F47169;
+  --color-red-400: #F8ABA5;
+  --color-red-200: #FCD5D1;
+
+  --color-grey-100: #F9FAFB;
+  --color-grey-200: #F2F4F7;
+  --color-grey-300: #EAECF0;
+  --color-grey-400: #D0D5DD;
+  --color-grey-500: #98A2B3;
+  --color-grey-600: #667085;
+  --color-grey-700: #475467;
+  --color-grey-800: #344054;
+  --color-grey-900: #222832;
+  --color-grey-950: #0F0F0F;
+
+  /* SEMANTIC TOKENS - Background */
+  --bg-brand-primary: var(--color-sunflower);
+  --bg-default: #FFFFFF;
+  --bg-default-inverted: #000000;
+  --bg-success: var(--color-green);
+  --bg-error: var(--color-red);
+
+  /* SEMANTIC TOKENS - Text */
+  --text-default: #000000;
+  --text-muted: var(--color-grey-600);
+  --text-default-inverted: #FFFFFF;
+  --text-disabled: var(--color-grey-500);
+  --text-success: var(--color-green);
+  --text-error: var(--color-red);
+  --text-brand-primary: var(--color-sunflower);
+
+  /* SEMANTIC TOKENS - Border */
+  --border-default: #000000;
+  --border-muted: var(--color-grey-500);
+  --border-disabled: var(--color-grey-500);
+  --border-success: var(--color-green);
+  --border-error: var(--color-red);
+  --border-brand-primary: var(--color-sunflower);
+}
+
+/* ==========================================================================
+   Tailwind v4 token registration — exposes the DS tokens as utility classes
+   (bg-sunflower, text-grey-600, p-md, rounded-sm, text-title-3, font-sans...)
+   ========================================================================== */
+
+@theme {
+  /* Font family */
+  --font-sans: 'Montserrat', sans-serif;
+
+  /* Colors */
+  --color-sunflower: #F8C642;
+  --color-sunflower-700: #FFDB7E;
+  --color-sunflower-400: #FCE4AA;
+  --color-sunflower-200: #FEF2D4;
+
+  --color-marigold: #E88239;
+  --color-marigold-700: #EC9D69;
+  --color-marigold-400: #F5C6A7;
+  --color-marigold-200: #F9E2D1;
+
+  --color-bluebell: #6071D7;
+  --color-bluebell-700: #8491DF;
+  --color-bluebell-400: #B7BFEC;
+  --color-bluebell-200: #DADFF6;
+
+  --color-signal-yellow: #FFD400;
+  --color-signal-yellow-700: #FFE066;
+  --color-signal-yellow-400: #FFF0B3;
+  --color-signal-yellow-200: #FFF9E6;
+
+  --color-vibrant-orange: #F25C2A;
+  --color-vibrant-orange-700: #F78A63;
+  --color-vibrant-orange-400: #FBC3AE;
+  --color-vibrant-orange-200: #FDE8DF;
+
+  --color-electric-blue: #0D2BFF;
+  --color-electric-blue-700: #4D63FF;
+  --color-electric-blue-400: #9AA6FF;
+  --color-electric-blue-200: #E4E8FF;
+
+  --color-cream: #F6F1E7;
+  --color-cream-700: #F8F3EB;
+  --color-cream-400: #F9F6EE;
+  --color-cream-200: #FBF8F2;
+
+  --color-green: #12B76A;
+  --color-green-700: #4FC68C;
+  --color-green-400: #96DEBB;
+  --color-green-200: #CAEFDD;
+
+  --color-red: #F04438;
+  --color-red-700: #F47169;
+  --color-red-400: #F8ABA5;
+  --color-red-200: #FCD5D1;
+
+  --color-grey-100: #F9FAFB;
+  --color-grey-200: #F2F4F7;
+  --color-grey-300: #EAECF0;
+  --color-grey-400: #D0D5DD;
+  --color-grey-500: #98A2B3;
+  --color-grey-600: #667085;
+  --color-grey-700: #475467;
+  --color-grey-800: #344054;
+  --color-grey-900: #222832;
+  --color-grey-950: #0F0F0F;
+
+  /* Spacing — named tokens (Tailwind defaults p-1..p-96 still work alongside) */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 40px;
+  --spacing-xxxl: 48px;
+
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* Shadow */
+  --shadow-card: 0 0 16px rgba(0, 0, 0, 0.08);
+
+  /* Typography — text-{name} utilities pair size with line-height + weight */
+  --text-title-1: 36px;
+  --text-title-1--line-height: 1.3;
+  --text-title-1--font-weight: 700;
+
+  --text-title-2: 28px;
+  --text-title-2--line-height: 1.3;
+  --text-title-2--font-weight: 700;
+
+  --text-title-3: 24px;
+  --text-title-3--line-height: 1.4;
+  --text-title-3--font-weight: 700;
+
+  --text-title-4: 20px;
+  --text-title-4--line-height: 1.4;
+  --text-title-4--font-weight: 700;
+
+  --text-heading: 18px;
+  --text-heading--line-height: 1.4;
+  --text-heading--font-weight: 700;
+
+  --text-subheading: 18px;
+  --text-subheading--line-height: 1.5;
+
+  --text-body: 16px;
+  --text-body--line-height: 1.5;
+
+  --text-footnote: 14px;
+  --text-footnote--line-height: 1.5;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 1.5;
+
+  --text-overline: 10px;
+  --text-overline--line-height: 1.5;
+
+  /* Font weights */
+  --font-weight-light: 400;
+  --font-weight-regular: 500;
+  --font-weight-emphasis: 700;
+}

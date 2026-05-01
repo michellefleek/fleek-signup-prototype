@@ -1,0 +1,40 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Achieve Pixel Perfection</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+      <style>
+        html, body { height: 100%; margin: 0; font-family: 'Montserrat', sans-serif; }
+        body { background: #F9FAFB; display: flex; justify-content: center; }
+        #root { height: 100%; width: 100%; max-width: 430px; background: #F9FAFB; position: relative; overflow: hidden; }
+
+        @media (min-width: 480px) {
+          body {
+            background: #C9CDD4;
+            align-items: center;
+            min-height: 100vh;
+          }
+          #root {
+            width: 393px;
+            height: 852px;
+            max-width: none;
+            box-sizing: content-box;
+            border-radius: 56px;
+            border: 12px solid #1a1a1a;
+            box-shadow: 0 0 0 2px #404040, 0 25px 50px rgba(0, 0, 0, 0.45);
+          }
+        }
+      </style>
+    </head>
+
+    <body>
+      <div id="root"></div>
+      <script type="module" src="/src/main.tsx"></script>
+    </body>
+  </html>
+  
