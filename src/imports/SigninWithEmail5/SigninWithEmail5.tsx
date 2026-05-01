@@ -351,7 +351,7 @@ function Frame({ onCreateAccount, onLoginSuccess, email, setEmail }: { onCreateA
               value={password}
               onChange={(v) => { setPassword(v); if (passwordError) setPasswordError(""); }}
               type={showPasswordText ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder={isNewUser ? "Create a password" : "Enter your password"}
               hasAttemptedSubmit={!!passwordError}
               error={passwordError}
               showPasswordToggle={true}
